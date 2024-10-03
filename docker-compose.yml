@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  app:
+    build:
+      args:
+        user: ${USER}
+        uid: 1000
+      context: ./
+      dockerfile: ./docker/php/Dockerfile
+    image: nfq-vietnam-test-app
+    container_name: nfq-vietnam-test-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - nfq-vietnam-test-network
+  db:
+    image: mysql:8.0
+    container_name: nfq-vietnam-test-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./docker/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - nfq-vietnam-test-network
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx:/etc/nginx/conf.d/
+    networks:
+      - nfq-vietnam-test-network
+networks:
+  nfq-vietnam-test-network:
+    driver: bridge
