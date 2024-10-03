@@ -1,0 +1,7 @@
+services:
+    WolfShop\Item:
+        class: WolfShop\Item
+
+    # App\Service\Item\AppleIpadProUpdater:
+    #   arguments:
+    #       $item: '@WolfShop\Item'

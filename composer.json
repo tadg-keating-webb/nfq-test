@@ -12,10 +12,10 @@
         "symfony/flex": "^2",
         "symfony/framework-bundle": "7.1.*",
         "symfony/runtime": "7.1.*",
-        "symfony/yaml": "7.1.*"
+        "symfony/yaml": "7.1.*",
+        "rs/wolf-shop": "dev-main"
     },
-    "require-dev": {
-    },
+    "require-dev": {},
     "config": {
         "allow-plugins": {
             "php-http/discovery": true,
@@ -64,5 +64,11 @@
             "allow-contrib": false,
             "require": "7.1.*"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/VincentWolf7539/wolf-shop"
+        }
+    ]
 }
