@@ -16,7 +16,7 @@ class LegendaryItemUpdater extends AbstractItemUpdater
 
     public function updateQuality(Item $item): Item
     {
-        // Todo: Implement the updateQuality method
+        $item->quality = 80;
         return $item;
     }
 }

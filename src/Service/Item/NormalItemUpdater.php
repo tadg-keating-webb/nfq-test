@@ -16,9 +16,6 @@ class NormalItemUpdater extends AbstractItemUpdater
     public function updateQuality(Item $item): Item
     {
         $amount = $item->sellIn < 0 ? -2 : -1;
-        
-        $this->changeQuality($item, $amount);
-
-        return $item;
+        return $this->changeQuality($item, $amount);
     }
 }

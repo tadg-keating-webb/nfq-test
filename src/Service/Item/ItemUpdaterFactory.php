@@ -22,9 +22,7 @@ class ItemUpdaterFactory
         if ($itemName === null) {
             $itemName = ItemEnum::NORMAL;
         }
-
-        dump($itemName->name);
-        dump($handlers[$itemName->name]);
+        
         return $handlers[$itemName->name];
     }
 }

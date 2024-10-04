@@ -15,7 +15,10 @@ class ConjuredItemUpdater extends AbstractItemUpdater
 
     public function updateQuality(Item $item): Item
     {
-        // Todo: Implement the updateQuality method
+        $amount = $item->sellIn < 0 ? -4 : -2;
+        
+        $this->changeQuality($item, $amount);
+
         return $item;
     }
 }

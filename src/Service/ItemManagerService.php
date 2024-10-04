@@ -22,6 +22,8 @@ class ItemManagerService
         if ($existingItem) {
             $updater = $this->itemUpdaterFactory->create($item->name);
 
+            $item->quality = $existingItem->getQuality();
+
             $item = $updater->updateQuality($item);
 
             $existingItem->setQuality($item->quality);
