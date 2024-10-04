@@ -32,6 +32,7 @@ class ImportItemsCommand extends Command
         
             foreach ($itemsData as $itemData) {
                 // Create an Item instance from the API data
+                // We could use an Entity here, but for the sake of demo, I will use the woldshop Item class
                 $item = new Item(
                     $itemData['name'],
                     self::DEFAULT_SELL_IN,

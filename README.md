@@ -20,7 +20,14 @@ git clone git@github.com:tadg-keating-webb/nfq-test.git
 ```bash
 cd nfq-test
 ```
-### 2. Start the Application
+## 2. Install Dependencies
+Once the containers are up and running, you need to install the Symfony dependencies. You can do this by running the following command:
+
+```bash
+composer install
+```
+
+### 3. Start the Application
 
 Use Docker Compose to build and start the containers by running the following command:
 
@@ -35,17 +42,10 @@ PHP-FPM: Symfony will run with PHP 8.1+
 
 MySQL: Database for the application
 
-## 3. Install Dependencies
-Once the containers are up and running, you need to install the Symfony dependencies. You can do this by running the following command:
-
-```bash
-docker compose exec app composer install
-```
-
 ## 4. Run Migrations
 
 ```bash
-docker compose exec app bin/console doctrine:migrations:migrate
+docker-compose exec app php bin/console doctrine:migrations:migrate
 ```
 
 ## Testing
@@ -56,7 +56,7 @@ docker-compose exec app php bin/phpunit
 
 ## Importing Items
 ```bash
-docker-compose exec php php bin/console app:import-items
+docker-compose exec app php bin/console app:import-items
 ```
 
 ## API Endpoint
