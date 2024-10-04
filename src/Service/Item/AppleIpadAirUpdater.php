@@ -4,7 +4,7 @@ namespace App\Service\Item;
 
 use WolfShop\Item;
 
-class AppleIPadAirUpdater extends AbstractItemUpdater {
+class AppleIpadAirUpdater extends AbstractItemUpdater {
     
     public function handle(Item $item): void
     {
