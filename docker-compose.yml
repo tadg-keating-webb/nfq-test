@@ -1,6 +1,8 @@
 version: '3.8'
 services:
   app:
+    depends_on:
+      - db
     build:
       args:
         user: ${USER}
@@ -20,8 +22,8 @@ services:
     container_name: nfq-vietnam-test-mysql
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: nfq
+      MYSQL_ROOT_PASSWORD: root
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
@@ -39,6 +41,7 @@ services:
       - ./docker/nginx:/etc/nginx/conf.d/
     networks:
       - nfq-vietnam-test-network
+
 networks:
   nfq-vietnam-test-network:
     driver: bridge

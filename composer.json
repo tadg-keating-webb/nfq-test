@@ -7,15 +7,19 @@
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/dbal": "^3",
+        "doctrine/doctrine-bundle": "^2.13",
+        "doctrine/doctrine-migrations-bundle": "^3.3",
+        "doctrine/orm": "^3.2",
+        "rs/wolf-shop": "dev-main",
         "symfony/console": "7.1.*",
         "symfony/dotenv": "7.1.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "7.1.*",
+        "symfony/http-client": "7.1.*",
         "symfony/runtime": "7.1.*",
-        "symfony/yaml": "7.1.*",
-        "rs/wolf-shop": "dev-main"
+        "symfony/yaml": "7.1.*"
     },
-    "require-dev": {},
     "config": {
         "allow-plugins": {
             "php-http/discovery": true,
@@ -70,5 +74,8 @@
             "type": "vcs",
             "url": "https://github.com/VincentWolf7539/wolf-shop"
         }
-    ]
+    ],
+    "require-dev": {
+        "symfony/maker-bundle": "^1.61"
+    }
 }
