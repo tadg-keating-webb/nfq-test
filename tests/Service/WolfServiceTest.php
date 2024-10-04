@@ -4,6 +4,7 @@ namespace App\Tests\Service;
 
 use App\DataFixtures\AppFixtures;
 use App\Entity\Item;
+use App\Repository\ItemRepository;
 use App\Service\Item\AppleIpadAirUpdater;
 use App\Service\Item\ConjuredItemUpdater;
 use App\Service\Item\ImprovingItemUpdater;
@@ -16,10 +17,10 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class WolfServiceTest extends KernelTestCase
 {
-    private $entityManager;
-    private $itemRepository;
-    private $itemUpdaterFactory;
-    private $wolfService;
+    private EntityManagerInterface $entityManager;
+    private ItemRepository $itemRepository;
+    private ItemUpdaterFactory $itemUpdaterFactory;
+    private WolfService $wolfService;
         
     protected function setUp(): void
     {
@@ -162,5 +163,18 @@ class WolfServiceTest extends KernelTestCase
         $expectedQuality = $initialSellIn > 0 ? $initialQuality + 1 : $initialQuality + 2;
         $this->assertEquals($expectedQuality, $updatedIpadAirItem->getQuality());
         $this->assertEquals($initialSellIn - 1, $updatedIpadAirItem->getSellIn());
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        // Restore exception handler to suppress warnings
+        restore_exception_handler();
+
+        // Optionally, clear the entity manager to avoid memory leaks between tests
+        if ($this->entityManager) {
+            $this->entityManager->close();
+        }
     }
 }
