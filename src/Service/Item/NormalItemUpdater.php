@@ -2,20 +2,21 @@
 
 namespace App\Service\Item;
 
+use App\Entity\Item;
 use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
-use WolfShop\Item;
 
 #[AsTaggedItem(index: 'NORMAL')]
 class NormalItemUpdater extends AbstractItemUpdater
 {
-    public function handle(Item $item): void
+    public function handle(Item $item): Item
     {   
-        // dd($this->item);
+        $item = $this->decreaseSellIn($item);
+        return $this->updateQuality($item);
     }
 
     public function updateQuality(Item $item): Item
     {
-        $amount = $item->sellIn < 0 ? -2 : -1;
+        $amount = $item->getSellin() < 0 ? -2 : -1;
         return $this->changeQuality($item, $amount);
     }
 }

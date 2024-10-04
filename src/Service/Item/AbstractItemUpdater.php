@@ -2,8 +2,8 @@
 
 namespace App\Service\Item;
 
+use App\Entity\Item;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
-use WolfShop\Item;
 
 #[AutoconfigureTag('app.updater')]
 abstract class AbstractItemUpdater
@@ -14,14 +14,14 @@ abstract class AbstractItemUpdater
     
     protected function decreaseSellIn(Item $item): Item
     {
-        $item->sellIn--;
+        $item->setSellIn($item->getSellIn() - 1);
         
         return $item;
     }
 
     protected function changeQuality(Item $item, Int $amount): Item
     {
-        $item->quality = max(0, min(50, $item->quality + $amount));
+        $item->setQuality(max(0, min(50, $item->getQuality() + $amount)));
         
         return $item;
     }

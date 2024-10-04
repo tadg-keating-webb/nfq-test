@@ -38,7 +38,7 @@ class ImportItemsCommand extends Command
                     self::DEFAULT_QUALITY
                 );
 
-                $this->itemManager->updateItem($item);
+                $item = $this->itemManager->updateItem($item);
                 
                 $output->writeln((string)$item);
             }

@@ -2,53 +2,65 @@
 
 namespace App\Tests\Service\Item;
 
+use App\Entity\Item; // Ensure this is the correct namespace for your Item entity
 use App\Service\Item\NormalItemUpdater;
 use PHPUnit\Framework\TestCase;
-use WolfShop\Item;
 
 class NormalItemUpdaterTest extends TestCase
 {
     public function testUpdateQualitySellInGreaterThan0()
     {
-        $item = new Item('Normal Item', 10, 20);
-        $updater = new NormalItemUpdater($item);
+        $item = new Item();
+        $item->setName('Normal Item');
+        $item->setSellIn(10);
+        $item->setQuality(20);
 
+        $updater = new NormalItemUpdater();
         $updatedItem = $updater->updateQuality($item);
 
-        $this->assertEquals(19, $updatedItem->quality);
-        $this->assertEquals(10, $updatedItem->sellIn);
+        $this->assertEquals(19, $updatedItem->getQuality());
+        $this->assertEquals(10, $updatedItem->getSellIn());
     }
 
     public function testUpdateQualitySellInLessThan0()
     {
-        $item = new Item('Normal Item', -1, 20);
-        $updater = new NormalItemUpdater($item);
+        $item = new Item();
+        $item->setName('Normal Item');
+        $item->setSellIn(-1);
+        $item->setQuality(20);
 
+        $updater = new NormalItemUpdater();
         $updatedItem = $updater->updateQuality($item);
 
-        $this->assertEquals(18, $updatedItem->quality);
-        $this->assertEquals(-1, $updatedItem->sellIn);
+        $this->assertEquals(18, $updatedItem->getQuality());
+        $this->assertEquals(-1, $updatedItem->getSellIn());
     }
 
     public function testUpdateQualityQualityNeverNegative()
     {
-        $item = new Item('Normal Item', 10, 0);
-        $updater = new NormalItemUpdater($item);
+        $item = new Item();
+        $item->setName('Normal Item');
+        $item->setSellIn(10);
+        $item->setQuality(0);
 
+        $updater = new NormalItemUpdater();
         $updatedItem = $updater->updateQuality($item);
 
-        $this->assertEquals(0, $updatedItem->quality);
-        $this->assertEquals(10, $updatedItem->sellIn);
+        $this->assertEquals(0, $updatedItem->getQuality());
+        $this->assertEquals(10, $updatedItem->getSellIn());
     }
 
     public function testUpdateQualityQualityNeverAbove50()
     {
-        $item = new Item('Normal Item', 10, 50);
-        $updater = new NormalItemUpdater($item);
+        $item = new Item();
+        $item->setName('Normal Item');
+        $item->setSellIn(10);
+        $item->setQuality(50);
 
+        $updater = new NormalItemUpdater();
         $updatedItem = $updater->updateQuality($item);
 
-        $this->assertEquals(49, $updatedItem->quality);
-        $this->assertEquals(10, $updatedItem->sellIn);
+        $this->assertEquals(49, $updatedItem->getQuality());
+        $this->assertEquals(10, $updatedItem->getSellIn());
     }
 }

@@ -2,31 +2,37 @@
 
 namespace App\Tests\Service\Item;
 
+use App\Entity\Item;
 use App\Service\Item\LegendaryItemUpdater;
 use PHPUnit\Framework\TestCase;
-use WolfShop\Item;
 
 class LegendaryItemUpdaterTest extends TestCase
 {
     public function testUpdateQuality()
     {
-        $item = new Item('Legendary Item', 10, 20);
-        $updater = new LegendaryItemUpdater($item);
+        $item = new Item();
+        $item->setName('Legendary Item');
+        $item->setSellIn(10);
+        $item->setQuality(20);
 
+        $updater = new LegendaryItemUpdater();
         $updatedItem = $updater->updateQuality($item);
 
-        $this->assertEquals(80, $updatedItem->quality);
-        $this->assertEquals(10, $updatedItem->sellIn);
+        $this->assertEquals(80, $updatedItem->getQuality());
+        $this->assertEquals(10, $updatedItem->getSellIn());
     }
 
     public function testUpdateQualityQualityAlways80()
     {
-        $item = new Item('Legendary Item', -1, 50);
-        $updater = new LegendaryItemUpdater($item);
+        $item = new Item();
+        $item->setName('Legendary Item');
+        $item->setSellIn(-1);
+        $item->setQuality(50);
 
+        $updater = new LegendaryItemUpdater();
         $updatedItem = $updater->updateQuality($item);
 
-        $this->assertEquals(80, $updatedItem->quality);
-        $this->assertEquals(-1, $updatedItem->sellIn);
+        $this->assertEquals(80, $updatedItem->getQuality());
+        $this->assertEquals(-1, $updatedItem->getSellIn());
     }
 }

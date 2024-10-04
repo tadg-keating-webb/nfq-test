@@ -2,11 +2,29 @@
 
 namespace App\Service;
 
-use App\Enum\ItemEnum;
 use App\Repository\ItemRepository;
-use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
-use WolfShop\Item;
+use App\Service\Item\ItemUpdaterFactory;
+use Doctrine\ORM\EntityManagerInterface;
 
 class WolfService
 {
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+        private ItemRepository $itemRepository,
+        private ItemUpdaterFactory $itemUpdaterFactory,
+    ) {
+    }
+
+    public function updateItems()
+    {
+        $items = $this->itemRepository->findAll();
+        
+        foreach ($items as $item) {
+            $updater = $this->itemUpdaterFactory->create($item->getName());
+
+            $item = $updater->handle($item);
+        }
+
+        $this->entityManager->flush();
+    }
 }

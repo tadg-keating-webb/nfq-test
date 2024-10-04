@@ -2,20 +2,21 @@
 
 namespace App\Service\Item;
 
+use App\Entity\Item;
 use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
-use WolfShop\Item;
 
 #[AsTaggedItem(index: 'CONJURED')]
 class ConjuredItemUpdater extends AbstractItemUpdater
 {
-    public function handle(Item $item): void
+    public function handle(Item $item): Item
     {
-
+        $item = $this->decreaseSellIn($item);
+        return $this->updateQuality($item);
     }
 
     public function updateQuality(Item $item): Item
     {
-        $amount = $item->sellIn < 0 ? -4 : -2;
+        $amount = $item->getSellIn() < 0 ? -4 : -2;
         
         $this->changeQuality($item, $amount);
 

@@ -2,21 +2,21 @@
 
 namespace App\Service\Item;
 
+use App\Entity\Item as Item;
 use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
-use WolfShop\Item;
 
-// #[AsTaggedItem(index: 'LEGENDARY')]
-#[AsTaggedItem(index: 'APPLE_IPAD_AIR')]
+#[AsTaggedItem(index: 'LEGENDARY')]
 class LegendaryItemUpdater extends AbstractItemUpdater
 {
-    public function handle(Item $item): void
+    public function handle(Item $item): Item
     {
-
+        return $this->updateQuality($item);   
     }
 
     public function updateQuality(Item $item): Item
     {
-        $item->quality = 80;
+        $item->setQuality(80);
+
         return $item;
     }
 }
